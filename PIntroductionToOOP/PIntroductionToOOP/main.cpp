@@ -11,7 +11,6 @@ using std::endl;
 
 class Point
 {
-private:
 	double x;
 	double y;
 public:
@@ -38,10 +37,28 @@ public:
 	}
 
 	//				Constructors:
-	Point()
+	/*Point()
 	{
 		x = y = double();//значение по умолчанию для double
 		cout << "Constructor:\t" << this << endl;
+	}
+	Point(double x)
+	{
+		this->x = x;
+		this->y = 0;
+		cout << "1argConstructor:" << this << endl;
+	}*/
+	Point(double x = 0, double y = 0)
+	{
+		this->x = x;
+		this->y = y;
+		cout << "Constructor:\t" << this << endl;
+	}
+	Point(const Point& other)
+	{
+		this->x = other.x;
+		this->y = other.y;
+		cout << "CopyConstructor:" << this << endl;
 	}
 	~Point()
 	{
@@ -71,7 +88,8 @@ double distance(Point A, Point B)
 }
 
 //#define STRUCT_POINT
-//#define DISTANCE_CHECK
+#define DISTANCE_CHECK
+//#define CONSTRUCTORS_CHECK
 
 void main()
 {
@@ -101,14 +119,30 @@ void main()
 	Point B;
 	B.set_x(7);
 	B.set_y(8);
+	cout << B.get_x() << "\t" << B.get_y() << endl;
 	cout << "Расстояние от точки 'A' до точки 'B':\t" << A.distance(B) << endl;
 	cout << "Расстояние от точки 'B' до точки 'A':\t" << B.distance(A) << endl;
 	cout << "Расстояние между точками 'A' и 'B':\t" << distance(A, B) << endl;
 	cout << "Расстояние между точками 'B' и 'A':\t" << distance(B, A) << endl;
 #endif // DISTANCE_CHECK
 
+#ifdef CONSTRUCTORS_CHECK
 	Point A;	//Default constructor
 	A.print();
+
+	Point B = 5;//Single-argument constructor
+	B.print();
+
+	Point C(8);	//Single-argument constructor
+	C.print();
+
+	Point D(5, 8);//Parametrised constructor
+	D.print();
+
+	Point E = D;
+	E.print();	//CopyConstructor  
+#endif // CONSTRUCTORS_CHECK
+
 }
 
 /*
@@ -144,7 +178,7 @@ set - задать, установить
 	-с параметрами;
 	-без параметров;
 	-по умолчанию - это конструктор, КОТОРЫЙ МОЖЕТ БЫТЬ ВЫЗВАН без параметров;
-	-Конструктор копирования;
+	-Конструктор копирования - это конструктор, который копирует объект;
 	-Конструктор переноса;
 2. ~Destructor	- это метод, который уничтожает объект по завершении его времени жизни;
 3. Assignment operator;
