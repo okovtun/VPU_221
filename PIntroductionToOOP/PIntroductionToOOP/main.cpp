@@ -1,6 +1,9 @@
 ﻿//IntroductionToOOP
 #include<iostream>
 using namespace std;
+using std::cin;
+using std::cout;
+using std::endl;
 
 //Объектно-Ориентированное программирование на языке C++
 //ООП
@@ -12,6 +15,11 @@ private:
 	double x;
 	double y;
 public:
+	//snake_case_style
+	//camelCaseStyle
+	//pascalCaseStyle
+	//smallCamel
+	//BigCamel
 	double get_x()const
 	{
 		return x;
@@ -28,9 +36,42 @@ public:
 	{
 		this->y = y;
 	}
+
+	//				Constructors:
+	Point()
+	{
+		x = y = double();//значение по умолчанию для double
+		cout << "Constructor:\t" << this << endl;
+	}
+	~Point()
+	{
+		cout << "Destructor:\t" << this << endl;
+	}
+
+	//				Methods:
+	double distance(Point other)
+	{
+		double x_distance = this->x - other.x;
+		double y_distance = this->y - other.y;
+		double distance = sqrt(x_distance*x_distance + y_distance * y_distance);
+		return distance;
+	}
+	void print()const
+	{
+		cout << "X = " << x << "\tY = " << y << endl;
+	}
 };
 
+double distance(Point A, Point B)
+{
+	double x_distance = A.get_x() - B.get_x();
+	double y_distance = A.get_y() - B.get_y();
+	double distance = sqrt(x_distance*x_distance + y_distance * y_distance);
+	return distance;
+}
+
 //#define STRUCT_POINT
+//#define DISTANCE_CHECK
 
 void main()
 {
@@ -51,10 +92,23 @@ void main()
 	cout << pA->x << "\t" << pA->y << endl;
 #endif // STRUCT_POINT
 
+#ifdef DISTANCE_CHECK
 	Point A;
 	A.set_x(2);
 	A.set_y(3);
 	cout << A.get_x() << "\t" << A.get_y() << endl;
+
+	Point B;
+	B.set_x(7);
+	B.set_y(8);
+	cout << "Расстояние от точки 'A' до точки 'B':\t" << A.distance(B) << endl;
+	cout << "Расстояние от точки 'B' до точки 'A':\t" << B.distance(A) << endl;
+	cout << "Расстояние между точками 'A' и 'B':\t" << distance(A, B) << endl;
+	cout << "Расстояние между точками 'B' и 'A':\t" << distance(B, A) << endl;
+#endif // DISTANCE_CHECK
+
+	Point A;	//Default constructor
+	A.print();
 }
 
 /*
@@ -81,5 +135,18 @@ protected:	защищенные поля, доступны внутри клас
 get/set-методы
 get - взять, получить
 set - задать, установить
+----------------------------------------------------------
+*/
+
+/*
+----------------------------------------------------------
+1. Constructor	- это метод, кторый создает объект, а именно....;
+	-с параметрами;
+	-без параметров;
+	-по умолчанию - это конструктор, КОТОРЫЙ МОЖЕТ БЫТЬ ВЫЗВАН без параметров;
+	-Конструктор копирования;
+	-Конструктор переноса;
+2. ~Destructor	- это метод, который уничтожает объект по завершении его времени жизни;
+3. Assignment operator;
 ----------------------------------------------------------
 */
