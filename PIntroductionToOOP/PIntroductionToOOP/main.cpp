@@ -5,6 +5,8 @@ using std::cin;
 using std::cout;
 using std::endl;
 
+#define delimiter "\n-------------------------------------------------------------\n"
+
 //Объектно-Ориентированное программирование на языке C++
 //ООП
 //OOP - Object-Oriented Programming
@@ -66,7 +68,7 @@ public:
 	}
 
 	//				Methods:
-	double distance(Point other)
+	double distance(const Point& other)const
 	{
 		double x_distance = this->x - other.x;
 		double y_distance = this->y - other.y;
@@ -79,7 +81,7 @@ public:
 	}
 };
 
-double distance(Point A, Point B)
+double distance(const Point& A, const Point& B)
 {
 	double x_distance = A.get_x() - B.get_x();
 	double y_distance = A.get_y() - B.get_y();
@@ -120,10 +122,15 @@ void main()
 	B.set_x(7);
 	B.set_y(8);
 	cout << B.get_x() << "\t" << B.get_y() << endl;
+	cout << delimiter << endl;
 	cout << "Расстояние от точки 'A' до точки 'B':\t" << A.distance(B) << endl;
+	cout << delimiter << endl;
 	cout << "Расстояние от точки 'B' до точки 'A':\t" << B.distance(A) << endl;
+	cout << delimiter << endl;
 	cout << "Расстояние между точками 'A' и 'B':\t" << distance(A, B) << endl;
+	cout << delimiter << endl;
 	cout << "Расстояние между точками 'B' и 'A':\t" << distance(B, A) << endl;
+	cout << delimiter << endl;
 #endif // DISTANCE_CHECK
 
 #ifdef CONSTRUCTORS_CHECK
