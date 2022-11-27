@@ -1,9 +1,14 @@
 #include<iostream>
+using namespace std;
 using std::cin;
 using std::cout;
 using std::endl;
 
 #define WIDTH	27
+
+class Fraction;
+Fraction operator*(Fraction left, Fraction right);
+Fraction operator/(const Fraction& left, const Fraction& right);
 
 class Fraction
 {
@@ -76,16 +81,82 @@ public:
 		cout << std::left << "Destructor:" << this << endl;
 	}
 
+	//				Operators:
+	Fraction& operator=(const Fraction& other)
+	{
+		this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;
+		cout.width(WIDTH);
+		cout << std::left << "CopyAssignment:" << this << endl;
+		return *this;
+	}
+	Fraction& operator*=(const Fraction& other)
+	{
+		return *this = *this*other;
+	}
+	Fraction& operator/=(const Fraction& other)
+	{
+		return *this = *this / other;
+	}
+
+	//					Increment/Deecrement
+	Fraction& operator++()	//Preifx increment
+	{
+		integer++;
+		return *this;
+	}
+	Fraction operator++(int)
+	{
+		Fraction old = *this;
+		integer++;
+		return old;
+	}
+
 	//				Methods:
-	void to_proper()
+	Fraction& to_proper()
 	{
 		integer += numerator / denominator;
 		numerator %= denominator;
+		return *this;
 	}
-	void to_improper()
+	Fraction& to_improper()
 	{
 		numerator += integer * denominator;
 		integer = 0;
+		return *this;
+	}
+	Fraction inverted()const
+	{
+		Fraction inverted = *this;
+		inverted.to_improper();
+		swap(inverted.numerator, inverted.denominator);
+		return inverted;
+	}
+	Fraction& reduce()
+	{
+		//https://www.webmath.ru/poleznoe/formules_12_7.php
+		int more, less, rest;
+		if (numerator > denominator)
+		{
+			more = numerator;
+			less = denominator;
+		}
+		else
+		{
+			less = numerator;
+			more = denominator;
+		}
+		do
+		{
+			rest = more % less;
+			more = less;
+			less = rest;
+		} while (rest);
+		int GCD = more;	//GCD - Greatest Common Divisor
+		numerator /= GCD;
+		denominator /= GCD;
+		return *this;
 	}
 
 	void print()const
@@ -105,7 +176,52 @@ public:
 	}
 };
 
+Fraction operator*(Fraction left, Fraction right)
+{
+	left.to_improper();
+	right.to_improper();
+	/*Fraction res;
+	res.set_numerator(left.get_numerator()*right.get_numerator());
+	res.set_denominator(left.get_denominator()*right.get_denominator());*/
+	/*Fraction res
+	(
+		left.get_numerator()*right.get_numerator(),
+		left.get_denominator()*right.get_denominator()
+	);
+	res.to_proper();
+	return res;*/
+	return Fraction
+	(
+		left.get_numerator()*right.get_numerator(),
+		left.get_denominator()*right.get_denominator()
+	).to_proper().reduce();
+}
+Fraction operator/(const Fraction& left, const Fraction& right)
+{
+	/*left.to_improper();
+	right.to_improper();
+	return Fraction
+	(
+		left.get_numerator()*right.get_denominator(),
+		right.get_numerator()*left.get_denominator()
+	).to_proper();*/
+	return left * right.inverted();
+}
+
+std::ostream& operator<<(std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer())os << obj.get_integer() << " ";
+	if (obj.get_numerator())
+	{
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+	}
+	else os << 0;
+	return os;
+}
+
 //#define CONSTRUCTORS_CHECK
+//#define ARITHMETICAL_OPERATORS_CHECK
+//#define INCREMENT_CHECK
 
 void main()
 {
@@ -130,16 +246,38 @@ void main()
 	D.print();
 #endif // CONSTRUCTORS_CHECK
 
+#ifdef ARITHMETICAL_OPERATORS_CHECK
+	double a = 2;
+	double b = 3;
+	double c = a * b;
+
 	Fraction A(2, 3, 4);
 	Fraction B(3, 4, 5);
-	Fraction C = A * B;
+	Fraction C = A / B;
 	C.print();
+
+	A *= B;
+	A.print();
+	A /= B;
+	A.print();
+#endif // ARITHMETICAL_OPERATORS_CHECK
+
+#ifdef INCREMENT_CHECK
+	for (double i = .0325; i < 10; i++)cout << i << "\t"; cout << endl;
+	for (Fraction i(1, 2); i.get_integer() < 10; i++)
+	{
+		i.print();
+	}
+#endif // INCREMENT_CHECK
+
+	Fraction A(2, 3, 4);
+	cout << A << endl;
 }
 
 /*
 ------------------------------------------------------------
 				Operators overloading rules:
-1. Перегрузить можно только существующие операторы, 
+1. Перегрузить можно только существующие операторы,
    создавать новые операторы невозможно!!!
    Например:
    +  - перегружается;

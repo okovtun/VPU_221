@@ -3,12 +3,21 @@ https://www.youtube.com/watch?v=1bcvF-OTs5k&list=PLeqyOOqxeiIOLpsRIUc_mkYSn_z7Xk
 
 TODO:
 1. В классе Fraction написать метод ??? reduce(???) который сокращает дробь;
+	https://www.webmath.ru/poleznoe/formules_12_7.php
 2. Для класса Fraction перегрузить;
 	- Арифметические операторы: +, -, *, /;
 	- Increment/Decrement (++/--);
-	- Оператор присваивания;
+	- Оператор присваивания;	DONE
 	- Составные присваивания: +=, -=, *=, /=;
 	- Операторы сравнения: ==, !=, >, <, >=, <=;
+3. Перегрузить оператор вода:
+	Fraction A;
+	cout << "Введите простую дробь: "; cin >> A;
+4. В отдельном проекте реализовать класс String, описывающий строку:
+	String str1 = "Hello";
+	String str2 = "World";
+	String str3 = str1 + str2;
+	cout << str3 << endl;
 
 DONE:
 1. Выучить теорию!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
