@@ -1,6 +1,9 @@
 https://github.com/okovtun/VPU_221.git
 https://www.youtube.com/watch?v=1bcvF-OTs5k&list=PLeqyOOqxeiIOLpsRIUc_mkYSn_z7XkG14
 
+Video:
+https://www.youtube.com/@TheCherno
+
 TODO:
 1. В классе Fraction написать метод ??? reduce(???) который сокращает дробь;
 	https://www.webmath.ru/poleznoe/formules_12_7.php
