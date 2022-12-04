@@ -53,7 +53,7 @@ public:
 		cout.width(WIDTH);
 		cout << std::left << "DefaultConstructor:" << this << endl;
 	}
-	Fraction(int integer)
+	explicit Fraction(int integer)
 	{
 		this->integer = integer;
 		this->numerator = 0;
@@ -290,6 +290,7 @@ std::istream& operator>>(std::istream& is, Fraction& obj)
 //#define ISTREAM_OPERATOR_CHECK
 //#define TYPE_CONVERSION_BASICS
 //#define CONVERSION_FROM_OTHER_TO_CLASS
+//#define CONVERSION_FROM_CLASS_TO_OTHER
 
 void main()
 {
@@ -387,6 +388,7 @@ cout << A << endl;*/
 	cout << B << endl;
 #endif // CONVERSION_FROM_OTHER_TO_CLASS
 
+#ifdef CONVERSION_FROM_CLASS_TO_OTHER
 	Fraction A(2, 3, 4);
 	cout << A << endl;
 
@@ -404,6 +406,10 @@ cout << A << endl;*/
 
 	double b = (double)A;
 	cout << b << endl;
+#endif // CONVERSION_FROM_CLASS_TO_OTHER
+
+	Fraction A = 2.75;
+	cout << A << endl;
 }
 
 /*

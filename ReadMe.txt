@@ -5,6 +5,16 @@ Video:
 https://www.youtube.com/@TheCherno
 
 TODO:
+1. Проверочный код должен заработать:
+	Fraction A = 2.75;
+	cout << A << endl;
+2. В отдельном проекте реализовать класс String, описывающий строку:
+	String str1 = "Hello";
+	String str2 = "World";
+	String str3 = str1 + str2;
+	cout << str3 << endl;
+
+DONE:
 1. В классе Fraction написать метод ??? reduce(???) который сокращает дробь;
 	https://www.webmath.ru/poleznoe/formules_12_7.php
 2. Для класса Fraction перегрузить;
