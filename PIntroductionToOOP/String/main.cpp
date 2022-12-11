@@ -44,6 +44,8 @@ public:
 		cout << std::left << "Destructor:" << this << endl;
 	}
 
+	//				CopyAssignment
+
 	//				Methods:
 	void print()const
 	{
@@ -64,4 +66,8 @@ void main()
 
 	String str3 = str2;
 	str3.print();
+
+	String str4;
+	str4 = str3;		//CopyAssignment
+	str4.print();
 }
